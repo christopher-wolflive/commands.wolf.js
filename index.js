@@ -4,6 +4,7 @@ const CommandContext = require('./CommandContext');
 const GroupRoleFilter = require('./Permissions/GroupRoleFilter');
 const GroupOnlyFilter = require('./Permissions/GroupOnlyFilter');
 const IFilter = require('./Permissions/IFilter');
+const PrivateOnlyFilter = require('./Permissions/PrivateOnlyFilter');
 
 module.exports = {
     Command,
@@ -11,5 +12,6 @@ module.exports = {
     CommandSystem,
     GroupRoleFilter,
     GroupOnlyFilter,
-    IFilter
+    IFilter,
+    PrivateOnlyFilter
 }
