@@ -104,6 +104,18 @@ isarray@2.0.1:
   resolved "https://registry.yarnpkg.com/isarray/-/isarray-2.0.1.tgz#a37d94ed9cda2d59865c9f76fe596ee1f338741e"
   integrity sha1-o32U7ZzaLVmGXJ92/llu4fM4dB4=
 
+mime-db@1.44.0:
+  version "1.44.0"
+  resolved "https://registry.yarnpkg.com/mime-db/-/mime-db-1.44.0.tgz#fa11c5eb0aca1334b4233cb4d52f10c5a6272f92"
+  integrity sha512-/NOTfLrsPBVeH7YtFPgsVWveuL+4SjjYxaQ1xtM1KMFj7HdxlBlxeyNLzhyJVx7r4rZGJAZ/6lkKCitSc/Nmpg==
+
+mime-types@^2.1.27:
+  version "2.1.27"
+  resolved "https://registry.yarnpkg.com/mime-types/-/mime-types-2.1.27.tgz#47949f98e279ea53119f5722e0f34e529bec009f"
+  integrity sha512-JIhqnCasI9yD+SsmkquHBxTSEuZdQX5BuQnS2Vc7puQQQ+8yiP5AY5uWhpdv4YL4VM5c6iliiYWPgJ/nJQLp7w==
+  dependencies:
+    mime-db "1.44.0"
+
 ms@2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
@@ -150,11 +162,12 @@ to-array@0.1.4:
   resolved "https://registry.yarnpkg.com/to-array/-/to-array-0.1.4.tgz#17e6c11f73dd4f3d74cda7a4ff3238e9ad9bf890"
   integrity sha1-F+bBH3PdTz10zaek/zI46a2b+JA=
 
-wolf.js@2.0.3:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/wolf.js/-/wolf.js-2.0.3.tgz#fe8a338b7a79bc1631383b02199153ac20db3e20"
-  integrity sha512-TlYSVtascOZ6GAdPQGerGCFlBPv3v7Yv9cYcWDlDGc0WwB/ws1Y4jtuGQ6yNNXUNVraUGH+2PectDka1SE0axQ==
+wolf.js@^2.0.5:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/wolf.js/-/wolf.js-2.0.5.tgz#7efb6948293c8d099e24730d9dfca78ff0c72e70"
+  integrity sha512-9CPpsTuceaEv7A22+aQMtIHLYG4tzjun80TrKHCbjvRypDWOFppjVlBNtdPMJ/ZWucZCN/p6JMmPKWu0Zqhg7Q==
   dependencies:
+    mime-types "^2.1.27"
     socket.io-client "2.3.1"
 
 ws@~6.1.0:

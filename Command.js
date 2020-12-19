@@ -1,27 +1,22 @@
-const CommandContext = require('./CommandContext');
-const IFilter = require('./Permissions/IFilter');
+const { Client } = require('wolf.js');
 
 module.exports = class Command {
     Trigger;
-    Description;
-    HelpMenuOrder;
+    Type;
     Method;
     Filters;
-    SubCommands;
+    Subcommands
 
     /**
-     * 
-     * @param {string} trigger 
-     * @param {string} description 
-     * @param {{method?: (context: CommandContext) => void, filters?: IFilter[], helpMenuOrder?: number}} config
-     * @param {...Command} commands 
+     * @param {string | RegExp} trigger
+     * @param {{ method?: (client: Client, context: CommandContext) => {}, filters?: any[] }} config
+     * @param {...Command} commands
      */
-    constructor(trigger, description, config, ...commands) {
-        this.Trigger = trigger;
-        this.Description = description;
-        this.SubCommands = commands;
-        this.Method = config.method;
-        this.Filters = config.filters ?? [];
-        this.HelpMenuOrder = config.helpMenuOrder ?? 100;
+    constructor(trigger, config, ...commands) {
+        this.Trigger = trigger ?? null;
+        this.Type = trigger.constructor.name ?? null;
+        this.Method = config?.method ?? null;
+        this.Filters = config?.filters ?? [];
+        this.Subcommands = commands;
     }
 }

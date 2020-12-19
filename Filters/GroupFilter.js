@@ -1,18 +1,20 @@
 const IFilter = require('./IFilter');
 const { Client } = require('wolf.js');
-const Command = require('../Command');
 const CommandContext = require('../CommandContext');
 
-module.exports = class GroupOnlyFilter extends IFilter {
-    constructor() { super() }
+module.exports = class GroupFilter extends IFilter {
+    
+    constructor() {
+        super();
+        this.FailedMessage = `(n) Sorry, this command can only be used in a group.`;
+    }
 
     /**
-     * Function that is checked, to be overrode
+     * 
      * @param {Client} client 
-     * @param {Command} command 
      * @param {CommandContext} context 
      */
-    Validate = async (client, command, context) => {
+    Validate = async (client, context) => {
         return context.Message.IsGroup;
     }
 }

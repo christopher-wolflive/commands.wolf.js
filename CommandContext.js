@@ -1,42 +1,61 @@
 const { Client, Message, GroupMessage, User, Group } = require('wolf.js');
+const p = require('path');
+const fs = require('fs/promises');
+const mime = require('mime-types');
 
 module.exports = class CommandContext {
-    #Commands;
     Client;
+    Translations;
+    Language;
     Message;
     User;
     Group;
     Rest;
 
     /**
-     * 
-     * @param {{client: Client, message: Message | GroupMessage, user: User, group: Group, rest: string, commands: {Trigger: string, Description: string, Method?: () => void, Filters: []}[], HelpMenuOrder: number}} data 
+     * @param {{client: Client, language: string, translations: any, message: Message | GroupMessage, user: User, group: Group, rest: string}} data 
      */
     constructor(data) {
-        this.#Commands = data.commands ?? [];
         this.Client = data.client;
+        this.Language = data.language;
+        this.Translations = data.translations;
         this.Message = data.message;
         this.User = data.user;
         this.Group = data.group;
         this.Rest = data.rest;
     }
 
-    GenerateHelpObject = (includeFunctionless = false) => {
-        let cmds = this.#Commands.filter(t => t.Description);
-
-        if (!includeFunctionless)
-            cmds = cmds.filter(t => t.Method);
+    /**
+     * @param {string} key 
+     */
+    GetTranslation = (key) => {
+        if (!this.Language)
+            return null;
         
-        cmds = cmds.sort((a, b) => a.HelpMenuOrder - b.HelpMenuOrder);
-        
-        return cmds.map(t => { return { trigger: t.Trigger, description: t.Description } });
+        return this.Translations.find(t => t.key.toLowerCase().trim() === key.toLowerCase().trim())?.translations[this.Language] ?? null;
     }
 
     /**
+     * Send a text response back
      * @param {string} content 
      */
-    Reply = async content => {
+    Reply = async (content) => {
+        let trans = this.GetTranslation(content);
+
+        if (trans)
+            content = trans;
+        
         let recipient = this.Message.IsGroup ? this.Message.Recipient : this.Message.Originator;
-        return await this.Client.SendMessage(recipient, content, this.Message.IsGroup, 'text/plain');
+
+        await this.Client.SendMessage(recipient, content, this.Message.IsGroup, 'text/plain');
+    }
+
+    /**
+     * Reply with an image
+     * @param {any} content 
+     */
+    ReplyImage = async (content, mimeType) => {
+        let recipient = this.Message.IsGroup ? this.Message.Recipient : this.Message.Originator;
+        return await this.Client.SendMessage(recipient, content, this.Message.IsGroup, mimeType);
     }
 }
