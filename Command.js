@@ -1,22 +1,23 @@
-const { Client } = require('wolf.js');
+const { Client, Message } = require('wolf.js');
 
 module.exports = class Command {
+    /**
+     * @type {string}
+     */
     Trigger;
-    Type;
-    Method;
-    Filters;
-    Subcommands
 
     /**
-     * @param {string | RegExp} trigger
-     * @param {{ method?: (client: Client, context: CommandContext) => {}, filters?: any[] }} config
-     * @param {...Command} commands
+     * @type {(client: Client, message: Message, rest: string) => void}
      */
-    constructor(trigger, config, ...commands) {
-        this.Trigger = trigger ?? null;
-        this.Type = trigger.constructor.name ?? null;
+    Method;
+
+    /**
+     * 
+     * @param {string} trigger 
+     * @param {{ method: (client: Client, message: Message, rest: string) => void}} config 
+     */
+    constructor(trigger, config) {
+        this.Trigger = trigger;
         this.Method = config?.method ?? null;
-        this.Filters = config?.filters ?? [];
-        this.Subcommands = commands;
     }
 }
